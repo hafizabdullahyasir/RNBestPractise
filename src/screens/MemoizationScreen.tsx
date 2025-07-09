@@ -3,7 +3,25 @@ import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 
 
 
+
+const usersData = [
+    { id: '1', name: 'Alice', status: 'online' },
+    { id: '2', name: 'Bob', status: 'offline' },
+    { id: '3', name: 'Charlie', status: 'online' },
+  ];
+
+
+
+
+
 export default function MemoizationScreen() {
+
+
+
+
+
+
+
 
 return (
       <View>
