@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Logger } from '../utils/Logger';
 
 
@@ -28,7 +28,6 @@ export default function MemoizationScreen() {
 
 
 
-
     const onlineUsers = useMemo(()=>{
         Logger.debug(`Calculating online users`);
         return users.filter(user=> user.status === 'online')
@@ -44,7 +43,8 @@ const handlePress = useCallback(()=>{
 
 
     return (
-        <View>
+        <View style={styles.container} >
+            <Text style={styles.title}>Memoization Example</Text>
             <Text>Counter: {counter}</Text>
             <Button title="Increment" onPress={handlePress} />
             <Text>Online Users</Text>
@@ -62,3 +62,16 @@ const handlePress = useCallback(()=>{
 
 
 }
+
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+            container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
+})
