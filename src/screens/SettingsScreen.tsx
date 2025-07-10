@@ -13,7 +13,7 @@ export default function SettingsScreen() {
 
     useEffect(() => {
         const loadSettings = async () => {
-            const saved = getFromStorage('dark-mode');
+            const saved = await getFromStorage('dark-mode');
             if(saved !== null){
                 Logger.info('Loaded dark mode from storage', saved);
                 setDarkMode(saved);
@@ -23,10 +23,10 @@ export default function SettingsScreen() {
     },[])
 
 
-    const toggleDarkMode = () => {
+    const toggleDarkMode = async () => {
         const newValue = !DarkMode;
         setDarkMode(newValue);
-        saveToStorage('dark-mode', newValue);
+        await saveToStorage('dark-mode', newValue);
         Logger.info(`💾 Dark mode saved: ${newValue}`);
       };
 
