@@ -14,7 +14,7 @@ export default function CounterScreen() {
         <View style={styles.container}>
             <Text style={styles.text}>{count}</Text>
             <TouchableOpacity onPress={increment} style={styles.button}>
-                <Text >Increment</Text>
+                <Text style={styles.buttonText}>Increment</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={decrement} style={styles.button}>
                 <Text style={styles.buttonText}>Decrement</Text>
