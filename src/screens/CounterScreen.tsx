@@ -2,11 +2,29 @@ import React from "react"
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native"
 import useCounterStore from "../store/counterStore"
 import { Logger } from "../utils/Logger"
+import { useDeepEffect } from "react-native-best-practice"
+import { useState } from "react"
+
+
+
+
+
+
+
+
 
 
 export default function CounterScreen() {
-    const { count, increment, decrement } = useCounterStore()
+    const { count, increment, decrement } = useCounterStore();
+    const [user, setUser] = useState({ id: 1, name: 'Alice', settings: { darkMode: true, notifications: true } });
 
+
+
+    useDeepEffect(() => {
+        Logger.info(`user changed`, user);
+    }, [user]);
+
+    
     
     Logger.info(`CounterScreen rendered`);
 
@@ -19,6 +37,19 @@ export default function CounterScreen() {
             <TouchableOpacity onPress={decrement} style={styles.button}>
                 <Text style={styles.buttonText}>Decrement</Text>
             </TouchableOpacity>
+           <View>
+           <Button
+  title="Toggle Dark Mode"
+  onPress={() => {
+    setUser((prev) => ({
+      ...prev,
+      settings: { ...prev.settings, darkMode: !prev.settings.darkMode },
+    }));
+  }}
+/>  
+
+           </View>
+
         </View>
     )
 }
