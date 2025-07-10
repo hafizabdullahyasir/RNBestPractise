@@ -1,3 +1,4 @@
+
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import React, { useState, useCallback, useMemo } from 'react';
 import { Logger } from '../utils/Logger';
@@ -6,7 +7,7 @@ import { Logger } from '../utils/Logger';
 
 const usersData = [
     { id: '1', name: 'Alice', status: 'online' },
-    { id: '2', name: 'Bob', status: 'offline' },
+    { id: '2', name: 'Bob', status: 'online' },
     { id: '3', name: 'Charlie', status: 'online' },
 ];
 
@@ -28,16 +29,21 @@ export default function MemoizationScreen() {
 
 
 
-    const onlineUsers = useMemo(()=>{
-        Logger.debug(`Calculating online users`);
-        return users.filter(user=> user.status === 'online')
-}, [users])
+        const onlineUsers = useMemo(()=>{
+            Logger.debug(`Calculating online users`);
+            return users.filter(user=> user.status === 'online')
+        }, [users])
 
-const handlePress = useCallback(()=>{
+
+const handlePress = useCallback(() => {
     setCounter(prev => prev + 1)
-},[])
+}, [])
 
+const renderItem = useCallback(({item}: {item: {id: string, name: string}}) => {
+    return <UserItem name={item.name} />
+}, [])
 
+const keyExtractor = useCallback((item: {id: string}) => item.id, [])
 
 
 
@@ -48,7 +54,7 @@ const handlePress = useCallback(()=>{
             <Text>Counter: {counter}</Text>
             <Button title="Increment" onPress={handlePress} />
             <Text>Online Users</Text>
-            <FlatList data={onlineUsers} keyExtractor={item => item.id} renderItem={({item}) => <UserItem name={item.name} />} />
+            <FlatList data={onlineUsers} keyExtractor={keyExtractor} renderItem={renderItem} />
         </View>
 
 
@@ -57,7 +63,12 @@ const handlePress = useCallback(()=>{
     )
 
 
-
+    // whyDidYouRender(React, {
+    //     trackExtraHooks: [
+    //       // notice that 'useSelector' is a named export
+    //       [UserItem, 'UserItem'],
+    //     ]
+    //   });
 
 
 
